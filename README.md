@@ -1,11 +1,18 @@
 # 🚀 Task Prioritization System
 
 A robust, deterministic task prioritization engine built with **FastAPI** and **PostgreSQL**. This system validates incoming tasks, calculates priority scores using a weighted formula, and categorizes them into High, Medium, or Low priority.
+## 🚀 Tech Stack
 
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![REST API](https://img.shields.io/badge/REST_API-FF6F00?style=for-the-badge&logo=api&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Pydantic](https://img.shields.io/badge/Pydantic-E92063?style=for-the-badge&logo=pydantic&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github)
+
+
 
 ---
 
@@ -245,7 +252,9 @@ This aligns with the assignment requirement to justify our approach while mainta
 
 
 
-#.env required for this project
+## [POSTMAN Testing collection](https://github.com/Deeppatel91/TaskPrioritizationSystem/blob/main/Task%20Prioritization%20API.postman_collection.json)
+
+##.env required for this project
 `````
 
 DATABASE_URL=postgresql://postgres:password@localhost:5432/task_prioritization
@@ -254,6 +263,55 @@ POSTGRES_PASSWORD=password
 POSTGRES_DB=task_prioritization
 POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
-
+POSTGRES_PORT=5432
 `````
+
+
+
+-----
+##File and Folder Structure 
+`````
+TASK PERFORMANCE/
+│
+├── app/
+│   ├── __init__.py
+│   │
+│   ├── api/
+│   │   ├── __init__.py
+│   │   └── routes.py
+│   │
+│   ├── db/
+│   │   ├── __init__.py
+│   │   ├── database.py
+│   │   └── models.py
+│   │
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── db_service.py
+│   │   └── scoring_logic.py
+│   │
+│   ├── validators/
+│   │   ├── __init__.py
+│   │   └── schemas.py
+│   │
+│   ├── config.py
+│   └── __init__.py
+│
+├── venv/
+│   ├── bin/
+│   ├── include/
+│   ├── lib/
+│   ├── pyvenv.cfg
+│   └── .gitignore
+│
+├── .env
+├── .gitignore
+├── docker-compose.yml
+├── Dockerfile
+├── LOGIC.txt
+├── main.py
+├── README.md
+├── requirements.txt
+└── Task Prioritization API.postman_collection.json
+
 ---
