@@ -1,0 +1,106 @@
+from pathlib import Path
+import pypandoc
+
+# Professional text content in Markdown format
+content_md = """
+Task Prioritization System – Professional Documentation
+
+1. Task Prioritization Logic
+
+Goal:
+Convert task attributes into a deterministic priority score (0–100) using logical rules.
+
+Priority Score Formula:
+priority_score = (0.50 × urgency) + (0.30 × importance_norm) − (0.20 × effort_penalty)
+
+Explanation of Weighting:
+- Urgency contributes 50% of the score because deadlines are critical.
+- Importance contributes 30% to reflect task significance.
+- Effort penalty subtracts 20% to reduce priority for tasks that are unrealistic or overly time-consuming.
+
+2. Urgency Calculation (Deadline Factor)
+
+Formula:
+urgency = 100 − (deadline_days × 3)
+
+Examples:
+- Deadline today (0 days): urgency = 100
+- Deadline in 10 days: urgency = 70
+- Deadline in 34+ days: urgency = 0
+
+This ensures tasks with closer deadlines receive higher priority.
+
+3. Importance Normalization
+
+User-provided importance is on a scale of 1–10. To convert it to a 0–100 scale:
+
+importance_norm = importance × 10
+
+4. Effort Penalty (Conflict Handling)
+
+Available working hours before deadline:
+available_hours = deadline_days × 8
+
+Effort penalty calculation:
+If estimated_hours ≤ available_hours:
+    effort_penalty = 0
+Else:
+    effort_penalty = (estimated_hours / available_hours) × 100
+
+Tasks that cannot be completed before the deadline are heavily penalized.
+
+5. Conflict Resolution Rules
+
+Scenario Handling:
+- Important but far deadline: Importance increases score, urgency lowers it, resulting in balanced priority.
+- Low importance but urgent: Urgency increases score, importance lowers it.
+- Task exceeds available time: Effort penalty significantly reduces score.
+
+6. Task Categorization
+
+Priority Score Ranges:
+- Score ≥ 70: High Priority
+- Score 40–69: Medium Priority
+- Score < 40: Low Priority
+
+These thresholds provide deterministic task classification.
+
+7. Deterministic Behavior
+
+Rules:
+- The same input always produces the same output.
+- Tie-breaking rules:
+  1. Earlier deadline
+  2. Task ID
+
+8. Edge Case Handling
+
+Handled Edge Cases:
+- Deadline = 0: urgency = 100
+- Equal scores: Sort by deadline, then task_id
+- Missing importance: Reject or assign default value
+- Malformed data: Reject and log to invalid_tasks
+- Impossible tasks: Apply effort penalty
+
+9. REST API Requirements
+
+Endpoints:
+- POST /tasks/prioritize: Validate, score, store, and return results
+- POST /tasks/validate: Validate task input only
+- GET /health: System health check
+
+10. System Architecture
+
+Layered Design:
+- Validation Layer: Input validation and schema checks
+- Prioritization Logic Layer: Score computation and categorization
+- Persistence Layer: Database storage (PostgreSQL)
+
+This separation ensures maintainability, scalability, and clean architecture.
+"""
+
+# Convert Markdown to TXT
+output_path = Path("/mnt/data/task_prioritization_documentation.txt")
+pypandoc.convert_text(content_md, 'plain', format='md', outputfile=str(output_path), extra_args=['--standalone'])
+
+str(output_path)
