@@ -242,4 +242,18 @@ When tasks have impossible requirements (e.g., estimated hours exceed available 
 
 This aligns with the assignment requirement to justify our approach while maintaining data完整性.
 
+
+
+
+#.env required for this project
+`````
+
+DATABASE_URL=postgresql://postgres:password@localhost:5432/task_prioritization
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
+POSTGRES_DB=task_prioritization
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+
+`````
 ---
