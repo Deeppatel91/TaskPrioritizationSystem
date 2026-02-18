@@ -1,25 +1,11 @@
-"""
-main.py
-═══════
-FastAPI application entry point.
-
-Run locally:
-    uvicorn main:app --reload
-
-Interactive docs:
-    http://localhost:8000/docs
-    http://localhost:8000/redoc
-"""
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-# Change this in main.py
 
-from app.api.routes import router
+from app.api.routes import router #router paths TASK PERFORMANCE/app/api/routes.py
 from app.services.db_service import init_db
-# Somewhere in your startup logic:
+
 init_db()
-# ── Application factory ────────────────────────────────────────────────────────
 
 app = FastAPI(
     title="Task Prioritization System",
@@ -33,7 +19,7 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
-# Allow all origins for development; restrict in production
+# #Browser → Middleware → API Route → Middleware → Response
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -41,22 +27,23 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# ── Startup event ──────────────────────────────────────────────────────────────
-
+#for creting database tables if they don't exist yet
 @app.on_event("startup")
 def on_startup():
     """Create database tables if they don't exist yet."""
     init_db()
 
 
-# ── Register routes ────────────────────────────────────────────────────────────
 
 app.include_router(router)
 
-
-# ── Root redirect ──────────────────────────────────────────────────────────────
-
+#redirect root to docs
 @app.get("/", include_in_schema=False)
 def root():
     return {"message": "Task Prioritization API — visit /docs for interactive documentation."}
+
+
+
+
+
+#interactive docs links /docs and OPEN API /openapi.json

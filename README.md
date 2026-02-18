@@ -30,7 +30,7 @@ $$priority\_score = (0.50 \times urgency) + (0.30 \times importance_{norm}) - (0
 3.  **Effort Penalty**: Calculated by comparing `estimated_hours` against `available_hours` (8 hours/day). If a task requires more hours than available before the deadline, it receives a penalty to lower its priority.
 
 ### Categories
-* **🔴 High**: Score $\ge 70$
+* **🔴 High**: Score $\ge 60$
 * **🟡 Medium**: Score $\ge 40$
 * **🟢 Low**: Score $< 40$
 
@@ -233,7 +233,7 @@ Tasks with equal priority_score are sorted by:
 
 Categorisation
 ──────────────
-  ≥ 70  → High
+  ≥ 60  → High
   ≥ 40  → Medium
   <  40 → Low
 
