@@ -1,0 +1,283 @@
+{
+  "info": {
+    "_postman_id": "6e4037a6-611c-4af2-92e3-322a36b02d1a",
+    "name": "Task Prioritization API",
+    "description": "Collection for testing the Task Prioritization System endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38161052",
+    "_collection_link": "https://go.postman.co/collection/38161052-6e4037a6-611c-4af2-92e3-322a36b02d1a?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "GET /health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "health"
+              ]
+            },
+            "description": "Check if the API is running"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tasks",
+      "item": [
+        {
+          "name": "POST /tasks/prioritize - Valid Tasks Only",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"task_id\": 1,\n    \"title\": \"Complete project proposal\",\n    \"deadline_days\": 2,\n    \"estimated_hours\": 4.5,\n    \"importance\": 9\n  },\n  {\n    \"task_id\": 2,\n    \"title\": \"Review team pull requests\",\n    \"deadline_days\": 1,\n    \"estimated_hours\": 2,\n    \"importance\": 7\n  },\n  {\n    \"task_id\": 3,\n    \"title\": \"Schedule quarterly meeting\",\n    \"deadline_days\": 5,\n    \"estimated_hours\": 1,\n    \"importance\": 5\n  }\n]"
+            },
+            "url": {
+              "raw": "http://localhost:8000/tasks/prioritize",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "tasks",
+                "prioritize"
+              ]
+            },
+            "description": "Submit valid tasks for prioritization"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /tasks/prioritize - Mixed Valid/Invalid",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"task_id\": 4,\n    \"title\": \"Valid task\",\n    \"deadline_days\": 3,\n    \"estimated_hours\": 6,\n    \"importance\": 8\n  },\n  {\n    \"task_id\": -5,\n    \"title\": \"Invalid ID\",\n    \"deadline_days\": 2,\n    \"estimated_hours\": 3,\n    \"importance\": 6\n  },\n  {\n    \"task_id\": 6,\n    \"title\": \"\",\n    \"deadline_days\": 1,\n    \"estimated_hours\": 2,\n    \"importance\": 4\n  },\n  {\n    \"task_id\": 7,\n    \"title\": \"Invalid importance\",\n    \"deadline_days\": 4,\n    \"estimated_hours\": 5,\n    \"importance\": 15\n  },\n  {\n    \"task_id\": 8,\n    \"title\": \"Negative deadline\",\n    \"deadline_days\": -2,\n    \"estimated_hours\": 3,\n    \"importance\": 5\n  },\n  \"not_an_object\"\n]"
+            },
+            "url": {
+              "raw": "{{base_url}}/tasks/prioritize",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks",
+                "prioritize"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /tasks/prioritize - Edge Cases",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"task_id\": 9,\n    \"title\": \"Due today\",\n    \"deadline_days\": 0,\n    \"estimated_hours\": 2,\n    \"importance\": 10\n  },\n  {\n    \"task_id\": 10,\n    \"title\": \"Long deadline\",\n    \"deadline_days\": 30,\n    \"estimated_hours\": 40,\n    \"importance\": 3\n  },\n  {\n    \"task_id\": 11,\n    \"title\": \"Impossible task\",\n    \"deadline_days\": 1,\n    \"estimated_hours\": 20,\n    \"importance\": 8\n  },\n  {\n    \"task_id\": 12,\n    \"title\": \"Zero hours\",\n    \"deadline_days\": 3,\n    \"estimated_hours\": 0,\n    \"importance\": 6\n  }\n]"
+            },
+            "url": {
+              "raw": "{{base_url}}/tasks/prioritize",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks",
+                "prioritize"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /tasks/validate - Test Validation Only",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"task_id\": 13,\n    \"title\": \"Valid validation test\",\n    \"deadline_days\": 7,\n    \"estimated_hours\": 10,\n    \"importance\": 6\n  },\n  {\n    \"task_id\": 14,\n    \"title\": \"   \",\n    \"deadline_days\": 2,\n    \"estimated_hours\": 3,\n    \"importance\": 5\n  },\n  {\n    \"task_id\": 15,\n    \"title\": \"Missing fields\"\n  }\n]"
+            },
+            "url": {
+              "raw": "{{base_url}}/tasks/validate",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks",
+                "validate"
+              ]
+            },
+            "description": "Test validation without scoring or storage"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /tasks - List Prioritized Tasks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/tasks",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks"
+              ]
+            },
+            "description": "Retrieve all stored prioritized tasks"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /tasks/invalid - List Invalid Tasks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/tasks/invalid",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks",
+                "invalid"
+              ]
+            },
+            "description": "Retrieve audit log of invalid tasks"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Error Scenarios",
+      "item": [
+        {
+          "name": "POST /tasks/prioritize - Empty Array",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[]"
+            },
+            "url": {
+              "raw": "{{base_url}}/tasks/prioritize",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks",
+                "prioritize"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /tasks/prioritize - Not an Array",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"task_id\": 16, \"title\": \"Single object\", \"deadline_days\": 3, \"estimated_hours\": 4, \"importance\": 7}"
+            },
+            "url": {
+              "raw": "{{base_url}}/tasks/prioritize",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks",
+                "prioritize"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /tasks/validate - Invalid Body",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"invalid\": \"payload\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/tasks/validate",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks",
+                "validate"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string",
+      "description": "Base URL for the API (change if deployed elsewhere)"
+    }
+  ]
+}
