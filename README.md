@@ -143,7 +143,7 @@ $$priority\_score = (0.50 \times urgency) + (0.30 \times importance_{norm}) - (0
             "urgency_score": 94.0,
             "effort_penalty": 28.12,
             "priority_score": 68.04,
-            "category": "Medium"
+            "category": "High"
         },
         {
             "task_id": 2,
@@ -154,7 +154,7 @@ $$priority\_score = (0.50 \times urgency) + (0.30 \times importance_{norm}) - (0
             "urgency_score": 97.0,
             "effort_penalty": 25.0,
             "priority_score": 63.5,
-            "category": "Medium"
+            "category": "High"
         },
         {
             "task_id": 3,
